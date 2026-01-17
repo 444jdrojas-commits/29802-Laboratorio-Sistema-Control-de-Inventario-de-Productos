@@ -1,9 +1,9 @@
 # Sistema de Inventario - Grupo Moradogit checkout main
-# 📦 Sistema de Control de Inventario (MVC)
+# Sistema de Control de Inventario (MVC)
 
 Proyecto de desarrollo de software colaborativo aplicando el patrón de arquitectura **Modelo-Vista-Controlador (MVC)**.
 
-## 👥 Integrantes del Equipo (Team Java)
+## Integrantes del Equipo (Team Java)
 * **Josue Rojas** - Modelo (`Producto.java`) - *Encapsulamiento y Estructura de Datos*
 * **Sebas** - Modelo de Negocio (`Inventario.java`) - *Gestión de Colecciones y Lógica*
 * **Edwin** - Vista (`FrmInventario.java`) - *Interfaz Gráfica (Swing) y Tablas*
@@ -11,7 +11,7 @@ Proyecto de desarrollo de software colaborativo aplicando el patrón de arquitec
 
 ---
 
-## 🚀 1. Funcionalidad del Proyecto
+## 1. Funcionalidad del Proyecto
 El sistema permite la gestión eficiente de un inventario de bodega mediante una interfaz gráfica amigable. Sus principales capacidades son:
 
 * **Registro de Productos:** Ingreso de Código, Nombre, Precio y Stock.
@@ -22,7 +22,7 @@ El sistema permite la gestión eficiente de un inventario de bodega mediante una
 
 ---
 
-## 🛠️ 2. Forma de Ejecución
+## 2. Forma de Ejecución
 Sigue estos pasos para compilar y ejecutar el proyecto en tu entorno local:
 
 ### Prerrequisitos
@@ -44,7 +44,7 @@ Sigue estos pasos para compilar y ejecutar el proyecto en tu entorno local:
 
 ---
 
-## 🌿 3. Descripción del Flujo de Ramas (Branching Model)
+## 3. Descripción del Flujo de Ramas (Branching Model)
 Para garantizar un desarrollo ordenado y cumplir con los estándares de colaboración, el equipo utilizó la siguiente estrategia de ramas:
 
 ### A. Estructura de Ramas
