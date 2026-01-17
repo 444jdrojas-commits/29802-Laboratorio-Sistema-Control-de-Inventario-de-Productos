@@ -5,30 +5,28 @@ import Inventario.view.FrmInventario;
 
 /**
  * -------------------------------------------------------------------------
- * CLASE PRINCIPAL (ENTRY POINT)
+ * CLASE PRINCIPAL
  * PROYECTO: Sistema de Control de Inventario
  * DESCRIPCIÓN: Punto de arranque de la aplicación.
  * Integración de componentes MVC (Modelo, Vista, Controlador).
  * -------------------------------------------------------------------------
  */
 public class Main {
+    //Metodo principal
     public static void main(String[] args) {
         
-        // Estética: Poner el diseño nativo de Windows/Mac para que se vea Pro
+        // define el aspecto de windows
         try {
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            // Si falla, no importa, usa el diseño por defecto de Java
+            // usa el aspecto por defecto
         }
 
-        // 1. Instanciar la VISTA (Trabajo de Edwin)
+        // Conecta vista con controlador
         FrmInventario vista = new FrmInventario();
-        
-        // 2. Instanciar el CONTROLADOR (Trabajo de Jaime)
-        // Se le pasa la vista para que el controlador tenga el control de la ventana
         InventarioController controlador = new InventarioController(vista);
         
-        // 3. INICIAR EL SISTEMA
+        // Muestra la ventana
         controlador.iniciar();
     }
 }

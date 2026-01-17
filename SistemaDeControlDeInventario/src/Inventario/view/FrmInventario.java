@@ -6,30 +6,26 @@ import java.awt.*;
 
 /**
  * -------------------------------------------------------------------------
- * INTEGRANTE: Edwin (View)
+ * INTEGRANTE: Edwin Guachi
  * PROYECTO: Sistema de Control de Inventario
- * CAMBIO: Ajuste de colores en botones para mejor legibilidad.
+ * TEMA: Programa que implementa la interfaz grafica para el sistema de inventario
  * -------------------------------------------------------------------------
  */
 public class FrmInventario extends JFrame {
 
+    // Crea elemntos graficos
     public JPanel pnlPrincipal;
-    
-    // Campos públicos
     public JTextField txtCodigo;
     public JTextField txtNombre;
     public JTextField txtPrecio;
     public JTextField txtStock;
-    
-    // Botones
     public JButton btnAgregar;
     public JButton btnLimpiar;
     public JButton btnSalir;
-    
-    // Tabla
     public JTable tblProductos;
     public DefaultTableModel modeloTabla;
 
+    // Constructor: crea nuevo formulario FrmInventario
     public FrmInventario() {
         setTitle("Sistema de Inventario - Team Java (Josue/Jaime/Edwin/Sebas)");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +35,7 @@ public class FrmInventario extends JFrame {
         iniciarComponentes();
     }
 
+    //Metodo inicializa los componentes graficos
     private void iniciarComponentes() {
         pnlPrincipal = new JPanel();
         pnlPrincipal.setLayout(null);
@@ -51,7 +48,7 @@ public class FrmInventario extends JFrame {
         lblTitulo.setBounds(50, 20, 600, 30);
         pnlPrincipal.add(lblTitulo);
 
-        // --- FORMULARIO ---
+        //Estructura formulario
         agregarEtiqueta("Código:", 50, 80);
         txtCodigo = agregarCampo(120, 80, 100);
 
@@ -64,30 +61,29 @@ public class FrmInventario extends JFrame {
         agregarEtiqueta("Stock:", 250, 130);
         txtStock = agregarCampo(320, 130, 100);
 
-        // --- BOTONES (CORREGIDO: LETRAS NEGRAS) ---
-        
+        // Crea botones
         btnAgregar = new JButton("GUARDAR");
         btnAgregar.setBounds(50, 180, 200, 40);
-        btnAgregar.setBackground(new Color(0, 153, 76)); // Verde
-        btnAgregar.setForeground(Color.BLACK);           // <--- AHORA ES NEGRO
+        btnAgregar.setBackground(new Color(0, 153, 76));
+        btnAgregar.setForeground(Color.BLACK);           
         btnAgregar.setFont(new Font("Arial", Font.BOLD, 12));
         pnlPrincipal.add(btnAgregar);
 
         btnLimpiar = new JButton("LIMPIAR");
         btnLimpiar.setBounds(270, 180, 150, 40);
-        btnLimpiar.setBackground(new Color(255, 204, 0)); // Amarillo
-        btnLimpiar.setForeground(Color.BLACK);            // <--- AHORA ES NEGRO
+        btnLimpiar.setBackground(new Color(255, 204, 0));
+        btnLimpiar.setForeground(Color.BLACK);            
         btnLimpiar.setFont(new Font("Arial", Font.BOLD, 12));
         pnlPrincipal.add(btnLimpiar);
 
         btnSalir = new JButton("SALIR");
         btnSalir.setBounds(440, 180, 150, 40);
-        btnSalir.setBackground(new Color(204, 0, 0));     // Rojo
-        btnSalir.setForeground(Color.BLACK);              // <--- AHORA ES NEGRO (Antes era blanco)
+        btnSalir.setBackground(new Color(204, 0, 0));
+        btnSalir.setForeground(Color.BLACK);     
         btnSalir.setFont(new Font("Arial", Font.BOLD, 12));
         pnlPrincipal.add(btnSalir);
 
-        // --- TABLA ---
+        // Crea la tabla y asigna nombre a columnas
         JLabel lblLista = new JLabel("Listado de Productos:");
         lblLista.setBounds(50, 240, 300, 20);
         lblLista.setFont(new Font("Arial", Font.BOLD, 14));
@@ -101,15 +97,18 @@ public class FrmInventario extends JFrame {
         scroll.setBounds(50, 270, 590, 250);
         pnlPrincipal.add(scroll);
 
+        //Añade panel a la ventana
         this.add(pnlPrincipal);
     }
 
+    //Metodo que agrega etiquetas a panel
     private void agregarEtiqueta(String texto, int x, int y) {
         JLabel lbl = new JLabel(texto);
         lbl.setBounds(x, y, 80, 25);
         pnlPrincipal.add(lbl);
     }
 
+    //Metodo para agregar campos de texto a panel
     private JTextField agregarCampo(int x, int y, int w) {
         JTextField txt = new JTextField();
         txt.setBounds(x, y, w, 25);
