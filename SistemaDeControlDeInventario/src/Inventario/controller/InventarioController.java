@@ -4,79 +4,99 @@ import Inventario.model.Producto;
 import Inventario.view.FrmInventario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
  * -------------------------------------------------------------------------
- * INTEGRANTE: Jaime (Team Inventario)
- * CLASE: InventarioController (Controlador)
- * Esta clase ejecuta el PROCESO DE CONTROL.
- * Su función es escuchar las ACCIONES de la vista (botones) y 
- * coordinar la creación de objetos del modelo (Producto).
+ * INTEGRANTE: Jaime (controller)
+ * PROYECTO: Sistema de Control de Inventario
+ * DESCRIPCIÓN: Gestiona la lógica, valida datos y actualiza la tabla.
  * -------------------------------------------------------------------------
  */
 public class InventarioController implements ActionListener {
 
-    private FrmInventario vista; 
-    private Producto modelo;     
+    private FrmInventario vista;
+    // Base de datos temporal en memoria (Lista)
+    private ArrayList<Producto> listaProductos;
 
-    // Constructor: Vincula las partes
     public InventarioController(FrmInventario vista) {
         this.vista = vista;
-        
-        // ACCIÓN: Suscribirse a los eventos de los botones 
+        this.listaProductos = new ArrayList<>(); // Inicializamos la lista
+
+        // Escuchar botones
         this.vista.btnAgregar.addActionListener(this);
         this.vista.btnLimpiar.addActionListener(this);
         this.vista.btnSalir.addActionListener(this);
     }
 
-    // Método para arrancar la ventana
     public void iniciar() {
-        vista.setTitle("Sistema Inventario - MVC (Jaime/Josue/Edwin)");
-        vista.setLocationRelativeTo(null);
         vista.setVisible(true);
     }
 
-    // ACCIÓN: Manejo de clics
     @Override
     public void actionPerformed(ActionEvent e) {
-        
         if (e.getSource() == vista.btnAgregar) {
-            crearProducto();
+            agregarProducto();
         }
-        
         if (e.getSource() == vista.btnLimpiar) {
-            limpiar();
+            limpiarCampos();
         }
-        
         if (e.getSource() == vista.btnSalir) {
-            System.exit(0);
+            int resp = JOptionPane.showConfirmDialog(vista, "¿Seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
+            if (resp == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
         }
     }
 
-    // PROCESO: Lógica para tomar datos y crear el objeto
-    private void crearProducto() {
+    private void agregarProducto() {
+        // 1. Validar que no haya campos vacíos
+        if (vista.txtCodigo.getText().isEmpty() || vista.txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(vista, "Error: El Código y Nombre son obligatorios.");
+            return;
+        }
+
         try {
-            // Obtenemos datos de la vista
-            String cod = vista.txtCodigo.getText();
-            String nom = vista.txtNombre.getText();
-            double pre = Double.parseDouble(vista.txtPrecio.getText());
-            int stk = Integer.parseInt(vista.txtStock.getText());
+            // 2. Capturar datos
+            String codigo = vista.txtCodigo.getText();
+            String nombre = vista.txtNombre.getText();
+            double precio = Double.parseDouble(vista.txtPrecio.getText());
+            int stock = Integer.parseInt(vista.txtStock.getText());
 
-            modelo = new Producto(cod, nom, pre, stk);
+            // 3. Crear el objeto 
+            Producto nuevoProducto = new Producto(codigo, nombre, precio, stock);
             
-            JOptionPane.showMessageDialog(vista, "¡Guardado con éxito!\n" + modelo.toString());
-            limpiar();
-            
+            // 4. Guardar en la lista (Simulando BD)
+            listaProductos.add(nuevoProducto);
+
+            // 5. Actualizar la tabla 
+            agregarFilaTabla(nuevoProducto);
+
+            JOptionPane.showMessageDialog(vista, "¡Producto guardado correctamente!");
+            limpiarCampos();
+
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(vista, "Error: Precio y Stock deben ser números.");
+            JOptionPane.showMessageDialog(vista, "Error: Precio y Stock deben ser numéricos.");
         }
     }
 
-    private void limpiar() {
+    private void agregarFilaTabla(Producto p) {
+        Object[] fila = new Object[5];
+        fila[0] = p.getCodigo();
+        fila[1] = p.getNombre();
+        fila[2] = String.format("$ %.2f", p.getPrecio());
+        fila[3] = p.getStock();
+        fila[4] = String.format("$ %.2f", p.getValorTotal()); // Calculado
+        
+        vista.modeloTabla.addRow(fila);
+    }
+
+    private void limpiarCampos() {
         vista.txtCodigo.setText("");
         vista.txtNombre.setText("");
         vista.txtPrecio.setText("");
         vista.txtStock.setText("");
+        vista.txtCodigo.requestFocus();
     }
 }
